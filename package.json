@@ -1,0 +1,14 @@
+{
+  "name": "activitynextline",
+  "version": "1.0.0",
+  "description": "Test activity nextline",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Axel Ruiz L.",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
