@@ -8,9 +8,10 @@ function getAll(userId) {
     return new Promise((resolve, reject) => {
         connection.query(sql, [userId], (err, result) => {
             if (err) {
-                reject(err)
+                err.sql = ''
+                reject([err, 500])
             }
-            resolve(result)
+            resolve([result, 200])
         })
     })
 }
@@ -21,9 +22,10 @@ function getTask(taskId) {
     return new Promise((resolve, reject) => {
         connection.query(sql, [taskId], (err, result) => {
             if (err) {
-                reject(err)
+                err.sql = ''
+                reject([err, 500])
             }
-            resolve(result)
+            resolve([result, 200])
         })
     })
 }
@@ -39,27 +41,34 @@ function postTask(req) {
     const sql = 'INSERT INTO tasks (title, description, status, comment, manager, tags, iduser) VALUES (?, ?, ?, ?, ?, ?, ?);'
 
     return new Promise((resolve, reject) => {
-        connection.query(sql, [title,description,status,comment,manager,tags,userId], (err, result) => {
-            if (err) {
-                reject(err)
+        connection.query(sql, [title, description, status, comment, manager, tags, userId], (err, result) => {
+            if (err != null) {
+                return reject([err.sqlMessage, 500])
             }
-            if(result.affectedRows<1)resolve("something went wrong creating")
-            resolve("success")
+            if (result.affectedRows < 1) resolve("something went wrong creating")
+            resolve(["successfully created", 201])
         })
     })
 }
 
-function modifiedTask(body) {
+function modifiedTask(body, taskId) {
     let sql = 'UPDATE tasks SET '
-
-    sql = sql + ' WHERE (`taskId` = );'
+    let dictionaryValues = []
+    for (let key in body) {
+        if (body.hasOwnProperty(key)) {
+            dictionaryValues.push(body[key])
+            sql = sql + ` ${key} = ? `
+        }
+    }
+    sql = sql + `WHERE (taskId = ${taskId});`
 
     return new Promise((resolve, reject) => {
-        connection.query(sql, (err, result) => {
+        connection.query(sql, dictionaryValues, (err, result) => {
             if (err) {
-                reject(err)
+                err.sql = ''
+                reject([err, 500])
             }
-            resolve(result)
+            resolve(['successfully updated', 200])
         })
     })
 }
@@ -70,12 +79,13 @@ function deleteTask(taskId) {
     return new Promise((resolve, reject) => {
         connection.query(sql, [taskId], (err, result) => {
             if (err) {
-                reject(err)
+                err.sql = ''
+                reject([err, 500])
             }
             if (result['affectedRows'] < 1) {
-                resolve('Task was not found')
+                resolve(['Task was not found', 200])
             }
-            resolve('Deleted successfully')
+            resolve(['Deleted successfully', 200])
 
         })
     })
