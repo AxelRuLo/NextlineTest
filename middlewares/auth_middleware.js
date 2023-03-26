@@ -1,9 +1,13 @@
+const jwt = require('jsonwebtoken');
 
-function verifiedLogin(req, res,next) {
-    if (!req.session.userid) {
-        return res.send('you are not logged').status(403)
-    }
-    next()
-}
+function verifyToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split("Bearer ")[1];
+    jwt.verify(token, "nextline", (err, user) => {
+       if (err) return res.sendStatus(404);
+       req.userid = user.user;
+       next();
+    });
+ }
 
-module.exports = verifiedLogin
+module.exports = verifyToken

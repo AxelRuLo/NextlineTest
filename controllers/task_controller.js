@@ -4,7 +4,7 @@ const controllerTask = {}
 
 
 async function getAll(req, res) {
-    const userId = req.session.userid
+    const userId = req.userid
     const allTask = await task.getAll(userId).catch(err=>err)
     res.status(allTask[1])
     res.send(allTask[0])

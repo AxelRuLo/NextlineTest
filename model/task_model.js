@@ -36,7 +36,7 @@ function postTask(req) {
     const title = req.body.title
     const description = req.body.description
     const status = req.body.status
-    const userId = req.session.userid
+    const userId = req.userid
     const tags = req.body.tags
     const manager = req.body.manager
     const comment = req.body.comment

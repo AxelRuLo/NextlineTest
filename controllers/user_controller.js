@@ -1,28 +1,34 @@
 const user = require("../model/user_model");
+const jwt = require('jsonwebtoken');
 const controllerUser = {};
 
 async function login(req, res) {
     const username = req.body.username;
     const password = req.body.password;
-    const session = req.session;
 
     if (username == "" || password == "") {
         return res.send("username and password must be provided").status(204);
     }
 
     const result = await user.login(username, password).catch((err) => err);
-    if (result[0]["iduser"]) session.userid = result[0]["iduser"];
+    const idUser = result[0]['iduser']
+    if (idUser != null) {
+        return jwt.sign({user:idUser}, 'nextline',{
+            expiresIn: "1h"
+        }, (err, token) => {
+            if (err) {
+                res.status(400).send({ msg: 'Error' })
+            }
+            else {
+                res.send({ msg: 'success', token: token })
+            }
+        })
+    };
 
     res.send(result);
 }
 
-async function logout(req, res) {
-    const session = req.session;
-    session.destroy();
-    res.send("session destroyed").status(200);
-}
 
 controllerUser.login = login;
-controllerUser.logout = logout;
 
 module.exports = controllerUser;
