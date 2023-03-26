@@ -7,7 +7,7 @@ async function login(req, res) {
     const session = req.session
 
     if (username == '' || password == '') {
-        res.send("username and password must be provided").status(204)
+        res.send('username and password must be provided').status(204)
     }
 
     const result = await user.login(username, password)
@@ -19,7 +19,7 @@ async function login(req, res) {
 async function logout(req, res) {
     const session = req.session
     session.destroy()
-    res.send("session destroyed").status(200)
+    res.send('session destroyed').status(200)
 }
 
 controllerUser.login = login

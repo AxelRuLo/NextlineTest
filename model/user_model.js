@@ -11,7 +11,7 @@ function login(username, password) {
                 reject(err)
             }
             if (result.length < 1) {
-                resolve("User not found")
+                resolve('User not found')
             }
             resolve(result)
         })

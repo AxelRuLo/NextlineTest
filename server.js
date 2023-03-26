@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const session = require('express-session')
 const user = require('./routes/user_routes')
+const task = require('./routes/task_routes')
+const authMiddleware = require('./middlewares/auth_middleware')
 const app = express();
 const PORT = process.env.PORT || 3000
 const oneDay = 1000 * 60 * 60 * 24;
@@ -19,6 +21,7 @@ app.use(session({
 
 }))
 app.use('/user',user)
+app.use('/task',authMiddleware,task)
 
 app.listen(PORT, async function async() {
     console.log(`working on port: ${PORT}`)
