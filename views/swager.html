@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+</head>
+
+<body>
+    <h1>Auth</h1>
+    <ul>
+        <li>
+            <h2>
+                /user/login
+            </h2>
+            <p>
+                Post method
+                <br>
+                <br>
+                Must have on the body this following parameters: password, username
+                <br>
+                Example:
+                <br>
+                <br>
+                {
+                <br>
+                "password":"user", required
+                <br>
+                "username":"user" required
+                <br>
+                }
+            </p>
+
+        </li>
+        <li>
+            <h2>
+                /user/logout
+            </h2>
+            <p>
+                Delete method
+                <br>
+                <br>
+                No body required
+            </p>
+            <p></p>
+        </li>
+
+    </ul>
+
+    <h1>Task</h1>
+    <ul>
+        <li>
+            <h2>/task/all</h2>
+            <p>
+                Get method
+                <br>
+                <br>
+                No url parameter need or body
+            </p>
+        </li>
+        <li>
+            <h2>/task/unique/:taskId</h2>
+            <p>
+                Get method
+                <br>
+                <br>
+                url parameter need making reference to the taskId which wants to consult
+
+            </p>
+        </li>
+        <li>
+            <h2>/task/delete/:taskId</h2>
+            <p>
+                Delete method
+                <br>
+                <br>
+                url parameter need making reference to the taskId which wants to eliminate
+
+            </p>
+        </li>
+        <li>
+            <h2>/task/new-task/</h2>
+            <p>
+                Post method
+                <br>
+                <br>
+                Body needed to create the Task
+                <br>
+
+                Example:
+                <br>
+                <br>
+                {
+                <br>
+                "title":"", required
+                <br>
+                "description":"", required
+                <br>
+                "status":"", required
+                <br>
+                "tags":"",optional
+                <br>
+                "manager":"", optional
+                <br>
+                "comment":"" optional
+                <br>
+                }
+                <br>
+            </p>
+        </li>
+        <li>
+            <h2>/task/modified-task/:taskId</h2>
+            <p style="font-family:verdana">
+                Put method
+                <br>
+                <br>
+                Body needed to change values of the Task
+                <br>
+                <br>
+                Url parameter taskId needed to identified the task to update
+                <br>
+                <br>
+                If not pass any applicable value will return a message indicating the applicable values
+                <br>
+                Example of available attributes
+                <br>
+                <br>
+                {
+                <br>
+                "title":"", optional
+                <br>
+                "description":"", optional
+                <br>
+                "status":"", optional
+                <br>
+                "tags":"",optional
+                <br>
+                "manager":"", optional
+                <br>
+                "comment":"" optional
+                <br>
+                }
+                <br>
+
+            </p>
+        </li>
+    </ul>
+</body>
+
+</html>

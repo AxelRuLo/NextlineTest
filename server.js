@@ -20,6 +20,9 @@ app.use(session({
     cookie: { maxAge: oneDay },
 
 }))
+app.get('/', function(req, res) {
+    res.sendFile('views/swager.html', {root: __dirname })
+});
 app.use('/user',user)
 app.use('/task',authMiddleware,task)
 

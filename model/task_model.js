@@ -1,7 +1,7 @@
 const connection = require('./database_connection')
 const taskModel = {}
 
-
+// The user can get his task, the userId is taken from the session
 function getAll(userId) {
     const sql = 'SELECT * FROM tasks where iduser=? '
 
@@ -15,7 +15,7 @@ function getAll(userId) {
         })
     })
 }
-
+// The user can get an specific task, the taskId is given by url parameter
 function getTask(taskId) {
     const sql = 'SELECT * FROM tasks where taskId=? '
 
@@ -30,6 +30,8 @@ function getTask(taskId) {
     })
 }
 
+// The user can create task, the req.boy must have all the necessary attributes otherwise it would be sended a message 
+// indicating the needed values
 function postTask(req) {
     const title = req.body.title
     const description = req.body.description
@@ -51,6 +53,7 @@ function postTask(req) {
     })
 }
 
+// The user can modified his task, the taskId is given from url parameter, the body must have the new values
 function modifiedTask(body, taskId) {
     let sql = 'UPDATE tasks SET '
     let dictionaryValues = []
@@ -73,6 +76,7 @@ function modifiedTask(body, taskId) {
     })
 }
 
+// The user can delete his task, the taskId is taken from the url parameter
 function deleteTask(taskId) {
     const sql = 'DELETE FROM tasks where taskId= ?'
 
